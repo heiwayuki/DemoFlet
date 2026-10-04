@@ -1,0 +1,21 @@
+# Python
+__pycache__/
+*.py[cod]
+
+# Môi trường ảo
+.venv/
+venv/
+env/
+
+# IDE (PyCharm, VS Code)
+.idea/
+.vscode/
+
+# Kết quả đóng gói (flet pack / flet build / cx_Freeze)
+build/
+dist/
+*.spec
+
+# File hệ thống
+.DS_Store
+Thumbs.db
