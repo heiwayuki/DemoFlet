@@ -117,8 +117,11 @@ def build_login(page: ft.Page, on_success):
     forgot_box, forgot_txt = make_btn(do_forgot)    # nút Quên mật khẩu
 
     # Phím Enter: ở ô mật khẩu -> đăng nhập; ở ô tài khoản -> nhảy sang ô mật khẩu
+    async def to_password(e):
+        await pwd_tf.focus()
+
     pwd_tf.on_submit = do_login
-    user_tf.on_submit = lambda e: pwd_tf.focus()
+    user_tf.on_submit = to_password
 
     # Nút chọn ngôn ngữ VI | EN
     lang_vi = ft.Text("VI", size=20, color="#FFFFFF")

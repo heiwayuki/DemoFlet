@@ -495,33 +495,33 @@ def build_htsv(page: ft.Page, username: str, role: str, on_logout):
                     raise ValueError
                 return v
             except ValueError:
-                field.error_text = msg
+                field.error = msg
                 return None
 
         def save(e):
             # --- Kiểm tra dữ liệu, ô nào sai thì báo lỗi dưới ô đó ---
             for f in (f_ma, f_ten, f_tc, f_tbd, f_tkt, f_siso):
-                f.error_text = None
+                f.error = None
             ma = (f_ma.value or "").strip().upper()
             ten = (f_ten.value or "").strip()
             if not ma:
-                f_ma.error_text = "Vui lòng nhập mã môn"
+                f_ma.error = "Vui lòng nhập mã môn"
             elif not is_edit and any(c["ma"] == ma for c in COURSES):
-                f_ma.error_text = "Mã môn đã tồn tại"      # không cho trùng mã
+                f_ma.error = "Mã môn đã tồn tại"      # không cho trùng mã
             if not ten:
-                f_ten.error_text = "Vui lòng nhập tên môn"
+                f_ten.error = "Vui lòng nhập tên môn"
             tc = to_int(f_tc, 1, 10, "Tín chỉ phải là số từ 1 đến 10")
             tbd = to_int(f_tbd, 1, 12, "Tiết từ 1 đến 12")
             tkt = to_int(f_tkt, 1, 12, "Tiết từ 1 đến 12")
             if tbd and tkt and tkt < tbd:
-                f_tkt.error_text = "Phải lớn hơn hoặc bằng tiết bắt đầu"
+                f_tkt.error = "Phải lớn hơn hoặc bằng tiết bắt đầu"
                 tkt = None
             # sĩ số tối đa không được nhỏ hơn số sinh viên đang đăng ký
             min_siso = max(1, registered_count(course["ma"])) if is_edit else 1
             siso = to_int(f_siso, min_siso, 500,
                           f"Sĩ số từ {min_siso} đến 500" + (" (đã có người đăng ký)" if is_edit else ""))
 
-            if any(f.error_text for f in (f_ma, f_ten, f_tc, f_tbd, f_tkt, f_siso)):
+            if any(f.error for f in (f_ma, f_ten, f_tc, f_tbd, f_tkt, f_siso)):
                 page.update()
                 return
 

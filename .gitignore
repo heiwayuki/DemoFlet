@@ -7,11 +7,11 @@ __pycache__/
 venv/
 env/
 
-# IDE (PyCharm, VS Code)
+# IDE
 .idea/
 .vscode/
 
-# Kết quả đóng gói (flet pack / flet build / cx_Freeze)
+# Kết quả đóng gói
 build/
 dist/
 *.spec
